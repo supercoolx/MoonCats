@@ -1,0 +1,25 @@
+{
+  "name": "nftmarketplace",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CccrizzZ/NFTMarketplace.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CccrizzZ/NFTMarketplace/issues"
+  },
+  "homepage": "https://github.com/CccrizzZ/NFTMarketplace#readme",
+  "dependencies": {
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@openzeppelin/contracts": "^4.4.2",
+    "dotenv": "^11.0.0",
+    "hardhat": "^2.8.2"
+  }
+}
