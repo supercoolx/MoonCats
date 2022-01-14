@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 
-contract WavyNFT is ERC721URIStorage{
+contract WavyNFT is ERC721URIStorage {
 
     // token id is a counter
     using Counters for Counters.Counter;

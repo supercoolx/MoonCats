@@ -21,5 +21,9 @@
     "@openzeppelin/contracts": "^4.4.2",
     "dotenv": "^11.0.0",
     "hardhat": "^2.8.2"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.4",
+    "ethers": "^5.0.0"
   }
 }

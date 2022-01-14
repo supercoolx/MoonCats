@@ -66,8 +66,8 @@ metadatas = [
 
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+  res.render('index', { title: 'Express' })
+})
 
 
 // serve metadata by id
@@ -77,6 +77,8 @@ router.get('/:id', (req, res, next) => {
   metadatas.forEach(data => {
     if (data["ID"] == req.params.id) {
       console.log(data)
+
+      // console.log(data["properties"]["image"]["description"])
       res.send(data)
     }
   })
@@ -86,4 +88,4 @@ router.get('/:id', (req, res, next) => {
 })
 
 
-module.exports = router;
+module.exports = router

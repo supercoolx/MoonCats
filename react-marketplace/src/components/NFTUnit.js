@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import { Card, ListGroup, ListGroupItem, Button} from 'react-bootstrap'
+import { React, Component } from 'react'
+import { Card, ListGroup, ListGroupItem, Button } from 'react-bootstrap'
+
 
 
 export default class NFTUnit extends Component {
@@ -7,7 +8,9 @@ export default class NFTUnit extends Component {
     constructor(props) {
         super(props)
 
+        
         this.state = {
+            desc: props.desc,
             owner: props.owner,
             price: props.price
         }
@@ -23,11 +26,11 @@ export default class NFTUnit extends Component {
                     <Card.Body>
                         <Card.Title>NFT Title</Card.Title>
                         <Card.Text>
-                            Owner: {this.state.owner}
+                            {this.state.desc}
                         </Card.Text>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
-                        <ListGroupItem>Price:</ListGroupItem>
+                        <ListGroupItem>Owner: {this.state.owner}</ListGroupItem>
                         <ListGroupItem>{this.state.price} ETH</ListGroupItem>
                         <ListGroupItem>{this.state.price * 3000} USD</ListGroupItem>
                     </ListGroup>
