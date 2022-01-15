@@ -1,6 +1,6 @@
 // nft contract address on ganache
-existingContractAddr = '0x38B3cd90D2C0AC3573E3377910254772E1F07259'
-mintAddr = '0x77D33Bbb1Cc538355D91C29183Bfe7e39191113F'
+existingContractAddr = '0x34172523984c68Ab5604DD11DaFDFE43B53f58D8'
+mintAddr = '0x0Dc4eB60e1B69bB7974fFa7b2281E8F969e16eA5'
 
 async function main() {
 
@@ -15,10 +15,11 @@ async function main() {
 
 
   // mint token 1,2,3
+  // assuming the express js server runs on port 3001
   for (let i = 1; i <= 3; i++) {
     await nft.awardItem(
       mintAddr, 
-      `127.0.0.1:3000/${i}`,
+      `127.0.0.1:3001/${i}`,
       {nonce: nonce + i - 1}
     )
   }

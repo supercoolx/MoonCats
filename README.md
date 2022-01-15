@@ -1,9 +1,9 @@
-## :earth_americas: Start express.js server
+## :earth_americas: Start express.js server (on port 3001)
 ```
 - cd server
 - npm i
 - npm start
-- http://127.0.0.1:3000/1 should gives metadata for token #1 
+- http://127.0.0.1:3001/1 should gives metadata for token #1 
 ```
 
 
@@ -27,9 +27,9 @@
 
 
 ## :rocket: Start react.js client app 
-(will prompt to run on other port if express server is running on port 3000)
 ```
-- cd to project root
+- change the NFT_CONTRACT_ADDRESS in ContractData.js to the deployed contract address
+- cd to react-marketplace in project root
 - npm i
 - npm start
 ```

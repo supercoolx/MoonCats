@@ -1,4 +1,5 @@
-[
+export const NFT_CONTRACT_ADDRESS = '0x34172523984c68Ab5604DD11DaFDFE43B53f58D8'
+export const NFT_CONTRACT_ABI = [
     {
         "inputs": [],
         "stateMutability": "nonpayable",

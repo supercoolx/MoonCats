@@ -3,8 +3,12 @@ import {Navbar, Container} from 'react-bootstrap'
 import NFTUnit from './NFTUnit'
 import './Page.css'
 import Web3 from 'web3'
+import axios from 'axios'
+import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from './ContractData'
 
-let contractAddr = '0x38B3cd90D2C0AC3573E3377910254772E1F07259'
+// todo: make contract ERC721Enumerable so it can iterate all the tokens and get metadata
+
+var NFTmetadata = []
 
 let initWeb3 = async () => {
     console.log("connecting to web3")
@@ -15,25 +19,62 @@ let initWeb3 = async () => {
     console.log(await w3.eth.getAccounts())
 
     // create contract instance
-    var deployedContract = new w3.eth.Contract('./ABI.json', contractAddr)
-
+    var deployedContract = new w3.eth.Contract(NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS)
     console.log(deployedContract)
+    
+
+    // iterate through the 3 test token minted
+    for (let i = 1; i <= 3; i++) {
+
+        // get their URI
+        await deployedContract.methods.tokenURI(i)
+        .call()
+        .then((result) => {
+
+            // console.log(result)
+            // send axios request to the tokenURI to retrieve the metadata obj
+            axios.get(`http://${result}`).then((response) => {
+                // console.log(response.data)
+
+                // push them into the global array variable so app can use it
+                NFTmetadata.push(response.data)
+            })
+           
+
+
+        })
+        
+    }
 
 }
+
+
 export default class MainPage extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            metadatas: [],
+            metadatas: []
         }
     }
 
-    componentDidMount(){
-        initWeb3()
+    async componentWillMount(){
+        await initWeb3()
+
+        // load NFT token metadata
+        this.setState({
+            metadatas: NFTmetadata
+        })
+
+        console.log(this.state.metadatas[0].properties.description.description)
+        // console.log(this.state.metadatas[1])
+        // console.log(this.state.metadatas[2])
+
+
     }
 
     render() {
+        console.log(NFTmetadata[0])
         return (
             <div>
                 {/* title */}
@@ -45,9 +86,8 @@ export default class MainPage extends Component {
 
                 {/* market grid */}
                 <div className="grid-container">
-                    <NFTUnit owner="0x55CFa30E55eF0E51b95cEBe566480a54E35e299a" price={1.2}/>
-                    <NFTUnit owner="0x55CFa30E55eF0E51b95cEBe566480a54E35e299a" price={1.2}/>
-                    <NFTUnit owner="0x55CFa30E55eF0E51b95cEBe566480a54E35e299a" price={1.2}/>
+                    {/* <NFTUnit render={this.state.metadatas[0]['properties']['image']['description']}/> */}
+                    <NFTUnit desc={NFTmetadata[0].properties.description.description} />
 
                 </div>
             </div>
