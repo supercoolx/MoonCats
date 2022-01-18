@@ -8,18 +8,20 @@ import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from './ContractData'
 
 // todo: make contract ERC721Enumerable so it can iterate all the tokens and get metadata
 
-var NFTmetadata = []
 
+var NFTmetadata = []
+var deployedContract
+var w3
 let initWeb3 = async () => {
     console.log("connecting to web3")
 
     // create the web3 object
-    var w3 = new Web3('ws://localhost:7545')
+    w3 = new Web3('ws://localhost:7545')
     console.log(w3)
     console.log(await w3.eth.getAccounts())
 
     // create contract instance
-    var deployedContract = new w3.eth.Contract(NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS)
+    deployedContract = new w3.eth.Contract(NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS)
     console.log(deployedContract)
     
 
@@ -31,21 +33,14 @@ let initWeb3 = async () => {
         .call()
         .then((result) => {
 
-            // console.log(result)
             // send axios request to the tokenURI to retrieve the metadata obj
             axios.get(`http://${result}`).then((response) => {
-                // console.log(response.data)
 
                 // push them into the global array variable so app can use it
                 NFTmetadata.push(response.data)
             })
-           
-
-
         })
-        
     }
-
 }
 
 
@@ -54,27 +49,72 @@ export default class MainPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            metadatas: []
+            metadatas: [],
+            isLoading: true,
+            owner: null
         }
+
     }
 
-    async componentWillMount(){
-        await initWeb3()
+    componentWillMount(){
+        this.LoadW3()
+    }
+    
+    LoadW3 = async() => {
+        
+        await initWeb3().then(() => {
 
-        // load NFT token metadata
-        this.setState({
-            metadatas: NFTmetadata
+            // load NFT token metadata
+            this.setState({
+                metadatas: NFTmetadata,
+            
+            })
+            
         })
+        
+        // no owner info in metadata
+        await this.getOwner(1)
 
+        // start the render
+        this.setState({ isLoading: false })
+        
         console.log(this.state.metadatas[0].properties.description.description)
         // console.log(this.state.metadatas[1])
         // console.log(this.state.metadatas[2])
-
-
     }
 
+
+    // render the page after data loaded
+    Page = () => {
+        return(
+            <div>
+                <NFTUnit
+                    title={this.state.metadatas[0].properties.name.description}
+                    desc={this.state.metadatas[0].properties.description.description}
+                    render={this.state.metadatas[0].properties.image.description}
+                    owner={this.state.owner}
+                    price={1.2}
+                />
+            </div>
+        )
+    }
+
+
+
+    // get owner of token
+    getOwner = async (index) => {
+
+        // call ownerof from contract
+        await deployedContract.methods.ownerOf(index)
+        .call()
+        .then((result) => {
+            this.setState({ owner: result })
+            return result
+        })
+    }
+
+
     render() {
-        console.log(NFTmetadata[0])
         return (
             <div>
                 {/* title */}
@@ -86,8 +126,7 @@ export default class MainPage extends Component {
 
                 {/* market grid */}
                 <div className="grid-container">
-                    {/* <NFTUnit render={this.state.metadatas[0]['properties']['image']['description']}/> */}
-                    <NFTUnit desc={NFTmetadata[0].properties.description.description} />
+                    {this.state.isLoading ? null : this.Page()}
 
                 </div>
             </div>

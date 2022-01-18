@@ -10,6 +10,7 @@ export default class NFTUnit extends Component {
 
         
         this.state = {
+            title: props.title,
             render: props.render,
             desc: props.desc,
             owner: props.owner,
@@ -25,7 +26,7 @@ export default class NFTUnit extends Component {
                 <Card style={{ width: '18rem' }}>
                     <Card.Img variant="top" src={this.state.render} />
                     <Card.Body>
-                        <Card.Title>NFT Title</Card.Title>
+                        <Card.Title>{this.state.title}</Card.Title>
                         <Card.Text>
                             {this.state.desc}
                         </Card.Text>
