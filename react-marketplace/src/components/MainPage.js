@@ -16,30 +16,34 @@ let initWeb3 = async () => {
     console.log("connecting to web3")
 
     // create the web3 object
-    w3 = new Web3('ws://localhost:7545')
+    // w3 = new Web3('ws://localhost:7545')
+    // w3 = new Web3('https://moonbase-blockscout.testnet.moonbeam.network')
+    // w3 = new Web3('https://moonbeam-alpha.api.onfinality.io/rpc?apikey=08c8bd11-f7f3-4a9c-940e-7ccfc8305d7e')
+    w3 = new Web3('https://rpc.api.moonbase.moonbeam.network')
+
     console.log(w3)
     console.log(await w3.eth.getAccounts())
 
     // create contract instance
-    deployedContract = new w3.eth.Contract(NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS)
-    console.log(deployedContract)
+    // deployedContract = new w3.eth.Contract(NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS)
+    // console.log(deployedContract)
     
 
     // iterate through the 3 test token minted
     for (let i = 1; i <= 3; i++) {
 
         // get their URI
-        await deployedContract.methods.tokenURI(i)
-        .call()
-        .then((result) => {
+        // await deployedContract.methods.tokenURI(i)
+        // .call()
+        // .then((result) => {
 
-            // send axios request to the tokenURI to retrieve the metadata obj
-            axios.get(`http://${result}`).then((response) => {
+        //     // send axios request to the tokenURI to retrieve the metadata obj
+        //     axios.get(`http://${result}`).then((response) => {
 
-                // push them into the global array variable so app can use it
-                NFTmetadata.push(response.data)
-            })
-        })
+        //         // push them into the global array variable so app can use it
+        //         NFTmetadata.push(response.data)
+        //     })
+        // })
     }
 }
 
@@ -62,23 +66,23 @@ export default class MainPage extends Component {
     
     LoadW3 = async() => {
         
-        await initWeb3().then(() => {
+        // await initWeb3().then(() => {
 
-            // load NFT token metadata
-            this.setState({
-                metadatas: NFTmetadata,
+        //     // load NFT token metadata
+        //     this.setState({
+        //         metadatas: NFTmetadata,
             
-            })
+        //     })
             
-        })
+        // })
         
         // no owner info in metadata
-        await this.getOwner(1)
+        // await this.getOwner(1)
 
         // start the render
-        this.setState({ isLoading: false })
+        // this.setState({ isLoading: false })
         
-        console.log(this.state.metadatas[0].properties.description.description)
+        // console.log(this.state.metadatas[0].properties.description.description)
         // console.log(this.state.metadatas[1])
         // console.log(this.state.metadatas[2])
     }
@@ -120,7 +124,7 @@ export default class MainPage extends Component {
                 {/* title */}
                 <Navbar bg="dark" variant="dark">
                     <Container>
-                        <Navbar.Brand>Simple NFT Marketplace</Navbar.Brand>
+                        <Navbar.Brand>NFT Marketplace</Navbar.Brand>
                     </Container>
                 </Navbar>
 

@@ -1,6 +1,6 @@
 // nft contract address on ganache
-existingContractAddr = '0x97aAA1B324b89F854Ef6b5c861ee8B074F0D339a'
-mintAddr = '0xD576b9353b5B4d7b03D72e0015a665b6811ede04'
+existingContractAddr = '0xe88d7e578Adec63119678b3b0a1759B539Dc151d'
+mintAddr = '0x0Dc7a9023527a40AD30e115A7882D669E78271D7'
 
 async function main() {
 

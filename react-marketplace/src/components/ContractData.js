@@ -1,10 +1,9 @@
-export const NFT_CONTRACT_ADDRESS = '0x97aAA1B324b89F854Ef6b5c861ee8B074F0D339a'
+export const NFT_CONTRACT_ADDRESS = '0xe88d7e578Adec63119678b3b0a1759B539Dc151d'
 export const NFT_CONTRACT_ABI = [
     {
         "inputs": [],
         "stateMutability": "nonpayable",
-        "type": "constructor",
-        "signature": "constructor"
+        "type": "constructor"
     },
     {
         "anonymous": false,
@@ -29,8 +28,7 @@ export const NFT_CONTRACT_ABI = [
             }
         ],
         "name": "Approval",
-        "type": "event",
-        "signature": "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925"
+        "type": "event"
     },
     {
         "anonymous": false,
@@ -55,8 +53,26 @@ export const NFT_CONTRACT_ABI = [
             }
         ],
         "name": "ApprovalForAll",
-        "type": "event",
-        "signature": "0x17307eab39ab6107e8899845ad3d59bd9653f200f220920489ca2b5937696c31"
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "previousOwner",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "OwnershipTransferred",
+        "type": "event"
     },
     {
         "anonymous": false,
@@ -81,8 +97,7 @@ export const NFT_CONTRACT_ABI = [
             }
         ],
         "name": "Transfer",
-        "type": "event",
-        "signature": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
+        "type": "event"
     },
     {
         "inputs": [
@@ -100,33 +115,7 @@ export const NFT_CONTRACT_ABI = [
         "name": "approve",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
-        "signature": "0x095ea7b3"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "addr",
-                "type": "address"
-            },
-            {
-                "internalType": "string",
-                "name": "tokenURI",
-                "type": "string"
-            }
-        ],
-        "name": "awardItem",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function",
-        "signature": "0xcf378343"
+        "type": "function"
     },
     {
         "inputs": [
@@ -145,9 +134,20 @@ export const NFT_CONTRACT_ABI = [
             }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true,
-        "signature": "0x70a08231"
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
+            }
+        ],
+        "name": "burn",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
     },
     {
         "inputs": [
@@ -166,9 +166,7 @@ export const NFT_CONTRACT_ABI = [
             }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true,
-        "signature": "0x081812fc"
+        "type": "function"
     },
     {
         "inputs": [
@@ -192,9 +190,7 @@ export const NFT_CONTRACT_ABI = [
             }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true,
-        "signature": "0xe985e9c5"
+        "type": "function"
     },
     {
         "inputs": [],
@@ -207,9 +203,20 @@ export const NFT_CONTRACT_ABI = [
             }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true,
-        "signature": "0x06fdde03"
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
     },
     {
         "inputs": [
@@ -228,9 +235,32 @@ export const NFT_CONTRACT_ABI = [
             }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true,
-        "signature": "0x6352211e"
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "renounceOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "uri",
+                "type": "string"
+            }
+        ],
+        "name": "safeMint",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
     },
     {
         "inputs": [
@@ -253,8 +283,7 @@ export const NFT_CONTRACT_ABI = [
         "name": "safeTransferFrom",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
-        "signature": "0x42842e0e"
+        "type": "function"
     },
     {
         "inputs": [
@@ -282,8 +311,7 @@ export const NFT_CONTRACT_ABI = [
         "name": "safeTransferFrom",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
-        "signature": "0xb88d4fde"
+        "type": "function"
     },
     {
         "inputs": [
@@ -301,8 +329,7 @@ export const NFT_CONTRACT_ABI = [
         "name": "setApprovalForAll",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
-        "signature": "0xa22cb465"
+        "type": "function"
     },
     {
         "inputs": [
@@ -321,9 +348,7 @@ export const NFT_CONTRACT_ABI = [
             }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true,
-        "signature": "0x01ffc9a7"
+        "type": "function"
     },
     {
         "inputs": [],
@@ -336,9 +361,7 @@ export const NFT_CONTRACT_ABI = [
             }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true,
-        "signature": "0x95d89b41"
+        "type": "function"
     },
     {
         "inputs": [
@@ -357,9 +380,7 @@ export const NFT_CONTRACT_ABI = [
             }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true,
-        "signature": "0xc87b56dd"
+        "type": "function"
     },
     {
         "inputs": [
@@ -382,7 +403,19 @@ export const NFT_CONTRACT_ABI = [
         "name": "transferFrom",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
-        "signature": "0x23b872dd"
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
     }
 ]

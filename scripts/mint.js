@@ -2,9 +2,7 @@
 
 // array of accounts to mint to
 const accounts = [
-    "0xDD3C0c2fCba16BEC95c09af9F5040e93474577aE",
-    "0x9E9e6Ffb87B0B5d8F39770544704e8862e2496e8",
-    "0x55CFa30E55eF0E51b95cEBe566480a54E35e299a",
+    "0x0Dc7a9023527a40AD30e115A7882D669E78271D7"
 ];
 
 // address of existing NFT contract deployed
@@ -14,7 +12,7 @@ const existingContractAddr = "";
 async function main() {
 
   // grab the NFT contract
-  const nft = await hre.ethers.getContractAt("WavyNFT", existingContractAddr);
+  const nft = await hre.ethers.getContractAt("MoonCats", existingContractAddr);
 
   // get account 0 from the blockchain provider
   const signer0 = await ethers.provider.getSigner(0);
