@@ -1,139 +1,45 @@
-import React, { Component } from 'react'
-import {Navbar, Container} from 'react-bootstrap'
-import NFTUnit from './NFTUnit'
-import './Page.css'
-import Web3 from 'web3'
-import axios from 'axios'
-import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from './ContractData'
+import React, { useState } from 'react'
+import web3, { isWeb3Enable, contract } from "../utils/web3"
+import { useAuth } from '../context/AuthContext'
 
-// todo: make contract ERC721Enumerable so it can iterate all the tokens and get metadata
-
-
-var NFTmetadata = []
-var deployedContract
-var w3
-let initWeb3 = async () => {
-    console.log("connecting to web3")
-
-    // create the web3 object
-    // w3 = new Web3('ws://localhost:7545')
-    // w3 = new Web3('https://moonbase-blockscout.testnet.moonbeam.network')
-    // w3 = new Web3('https://moonbeam-alpha.api.onfinality.io/rpc?apikey=08c8bd11-f7f3-4a9c-940e-7ccfc8305d7e')
-    w3 = new Web3('https://rpc.api.moonbase.moonbeam.network')
-
-    console.log(w3)
-    console.log(await w3.eth.getAccounts())
-
-    // create contract instance
-    // deployedContract = new w3.eth.Contract(NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS)
-    // console.log(deployedContract)
-    
-
-    // iterate through the 3 test token minted
-    for (let i = 1; i <= 3; i++) {
-
-        // get their URI
-        // await deployedContract.methods.tokenURI(i)
-        // .call()
-        // .then((result) => {
-
-        //     // send axios request to the tokenURI to retrieve the metadata obj
-        //     axios.get(`http://${result}`).then((response) => {
-
-        //         // push them into the global array variable so app can use it
-        //         NFTmetadata.push(response.data)
-        //     })
-        // })
-    }
-}
-
-
-export default class MainPage extends Component {
-
-    constructor(props) {
-        super(props)
-        this.state = {
-            metadatas: [],
-            isLoading: true,
-            owner: null
-        }
-
+const MainPage = () => {
+    const uri = 'https://gateway.ipfs.io/ipfs/QmR4PEH7LPZb6eSd8Yiy46mzHQjAXAimm6UE2mfqgyPq94';
+    const { address } = useAuth();
+    const [count, setCount] = useState(1);
+    const handlePlus = () => setCount(count + 1);
+    const handleMinus = () => count > 1 && setCount(count - 1);
+    const mint = async () => {
+        if(!isWeb3Enable) return alert("Please install metamask.");
+        if(!address) return alert("Please login");
+        console.log("address: " + address);
+        await contract.methods.safeMint(address, uri).send({ from: address })
+        .then((res) => alert('success'))
+        .catch(err => console.log(err.message));
     }
 
-    componentWillMount(){
-        this.LoadW3()
-    }
-    
-    LoadW3 = async() => {
-        
-        // await initWeb3().then(() => {
-
-        //     // load NFT token metadata
-        //     this.setState({
-        //         metadatas: NFTmetadata,
-            
-        //     })
-            
-        // })
-        
-        // no owner info in metadata
-        // await this.getOwner(1)
-
-        // start the render
-        // this.setState({ isLoading: false })
-        
-        // console.log(this.state.metadatas[0].properties.description.description)
-        // console.log(this.state.metadatas[1])
-        // console.log(this.state.metadatas[2])
-    }
-
-
-    // render the page after data loaded
-    Page = () => {
-        return(
-            <div>
-                <NFTUnit
-                    title={this.state.metadatas[0].properties.name.description}
-                    desc={this.state.metadatas[0].properties.description.description}
-                    render={this.state.metadatas[0].properties.image.description}
-                    owner={this.state.owner}
-                    price={1.2}
-                />
-            </div>
-        )
-    }
-
-
-
-    // get owner of token
-    getOwner = async (index) => {
-
-        // call ownerof from contract
-        await deployedContract.methods.ownerOf(index)
-        .call()
-        .then((result) => {
-            this.setState({ owner: result })
-            return result
-        })
-    }
-
-
-    render() {
-        return (
-            <div>
-                {/* title */}
-                <Navbar bg="dark" variant="dark">
-                    <Container>
-                        <Navbar.Brand>NFT Marketplace</Navbar.Brand>
-                    </Container>
-                </Navbar>
-
-                {/* market grid */}
-                <div className="grid-container">
-                    {this.state.isLoading ? null : this.Page()}
-
+    return (
+        <div>
+            {/* market grid */}
+            <div className="max-w-[500px] text-white mx-auto border-8 border-blue-600 bg-blue-400 rounded-xl p-10 mt-5">
+                <div className='text-3xl font-bold'>Mint your Mooncat now!</div>
+                <div className='py-2 text-xl font-semibold'>Enter the amount of Mooncats you would like to mint.</div>
+                <div className='py-3 bg-blue-600 rounded-lg'>
+                    <div className='text-2xl text-center'>Price per Mooncat</div>
+                    <div className='pt-2 text-4xl text-center'><span className='font-bold'>0.1</span> GLMR Each</div>
                 </div>
+                <div className='flex mt-3 h-[60px] text-3xl'>
+                    <button onClick={handleMinus} className='flex-1 bg-blue-600 rounded-l-lg'>-</button>
+                    <div className='w-[30%] bg-blue-600 flex items-center justify-center'>{count}</div>
+                    <button onClick={handlePlus} className='flex-1 bg-blue-600 rounded-r-lg'>+</button>
+                </div>
+                <div className='flex items-center justify-between px-3 py-3 mt-3 bg-blue-600 rounded-lg'>
+                    <div className='text-2xl'>Total</div>
+                    <div className='text-3xl'>{Math.floor(count * 0.1 * 10) / 10} GLMR</div>
+                </div>
+                <button onClick={mint} className='w-full py-3 mt-3 text-2xl bg-blue-600 rounded-lg'>MINT</button>
             </div>
-        )
-    }
+        </div>
+    )
 }
+
+export default MainPage;
