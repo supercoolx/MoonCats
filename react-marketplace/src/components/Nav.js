@@ -1,13 +1,14 @@
-import web3, { isWeb3Enable, switchNetwork } from "../utils/web3";
+import { configureMoonbeam } from "../utils/web3";
 import { useAuth } from './../context/AuthContext'
 
 const Nav = () => {
     const { address, setAddress } = useAuth();
 
     const connectMetamask = () => {
-        if(!isWeb3Enable) return alert('Please install metamask');
+        // if(!isWeb3Enable) return alert('Please install metamask');
         if(address) return setAddress(null);
-        web3.eth.requestAccounts()
+        configureMoonbeam()
+        // .then(() => web3.eth.requestAccounts())
         .then(users => users[0])
         .then(user => setAddress(user))
         .catch(err => alert(err.message));

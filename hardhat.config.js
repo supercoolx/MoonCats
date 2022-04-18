@@ -1,13 +1,15 @@
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
-
+require("dotenv" ).config();
 require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-ethers");
-require("dotenv").config();
+const API_KEY = process.env.API_KEY || "";
+const PRIVATE_KEY = process.env.PRIVATE_KEY || ""; // well known private key
 
 
 module.exports = {
+  defaultNetwork: "hardhat",
   solidity: "0.8.7",
   networks:{
     // ganache: {
@@ -15,8 +17,13 @@ module.exports = {
     //   accounts: ['5c7db4585a9ac3b32286f5d2f93509ca83a0a18e4fbad4a66897e5d71df9e9ed']
     // },
     moonbasealpha: {
-      url:"https://moonbase-blockscout.testnet.moonbeam.network",
-      accounts: ['70e92f415d2d1f07969be562334a257794e4859a4a1de1fbb23761480fb6c09f']
-    }    
+      url: `https://rpc.testnet.moonbeam.network`,
+      chainId: 1287,
+      accounts: [PRIVATE_KEY]
+    },
+    ropsten: {
+      url: `https://ropsten.infura.io/v3/${API_KEY}`,
+      accounts: [PRIVATE_KEY]
+    } 
   }
 };

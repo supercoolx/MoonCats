@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import web3, { isWeb3Enable, contract } from "../utils/web3"
+import { isWeb3Enable, contract } from "../utils/web3"
 import { useAuth } from '../context/AuthContext'
 
 const MainPage = () => {
