@@ -3,6 +3,7 @@ import { isWeb3Enable, contract } from "../utils/web3"
 import { useAuth } from '../context/AuthContext'
 
 const MainPage = () => {
+    const price = 2;
     const uri = 'https://gateway.ipfs.io/ipfs/QmR4PEH7LPZb6eSd8Yiy46mzHQjAXAimm6UE2mfqgyPq94';
     const { address } = useAuth();
     const [count, setCount] = useState(1);
@@ -34,7 +35,7 @@ const MainPage = () => {
                 </div>
                 <div className='flex items-center justify-between px-3 py-3 mt-3 bg-blue-600 rounded-lg'>
                     <div className='text-2xl'>Total</div>
-                    <div className='text-3xl'>{Math.floor(count * 0.1 * 10) / 10} GLMR</div>
+                    <div className='text-3xl'>{count * price} GLMR</div>
                 </div>
                 <button onClick={mint} className='w-full py-3 mt-3 text-2xl bg-blue-600 rounded-lg'>MINT</button>
             </div>
