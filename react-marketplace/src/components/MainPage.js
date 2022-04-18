@@ -26,7 +26,7 @@ const MainPage = () => {
                 <div className='py-2 text-xl font-semibold'>Enter the amount of Mooncats you would like to mint.</div>
                 <div className='py-3 bg-blue-600 rounded-lg'>
                     <div className='text-2xl text-center'>Price per Mooncat</div>
-                    <div className='pt-2 text-4xl text-center'><span className='font-bold'>0.1</span> GLMR Each</div>
+                    <div className='pt-2 text-4xl text-center'><span className='font-bold'>{price}</span> GLMR Each</div>
                 </div>
                 <div className='flex mt-3 h-[60px] text-3xl'>
                     <button onClick={handleMinus} className='flex-1 bg-blue-600 rounded-l-lg'>-</button>
